@@ -1,0 +1,9 @@
+com\assignmentRmiServer\RemoteInterface.class
+com\assignmentRmiServer\domain\Song.class
+com\assignmentRmiServer\domain\Album.class
+com\assignmentRmiClient\Client.class
+com\assignmentRmiClient\gui\ClientGui.class
+com\assignmentRmiClient\enums\Commands.class
+com\assignmentRmiServer\domain\Artist.class
+com\assignmentRmiServer\domain\User.class
+com\assignmentRmiServer\enums\Role.class
