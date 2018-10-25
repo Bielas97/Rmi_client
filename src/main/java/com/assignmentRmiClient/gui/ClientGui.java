@@ -14,6 +14,9 @@ import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * shows client interface in command windows
+ */
 public class ClientGui {
     private boolean isLoggedIn = false;
     private User currentlyLoggedUser;

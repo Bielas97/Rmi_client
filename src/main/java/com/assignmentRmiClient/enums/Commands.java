@@ -1,10 +1,11 @@
 package com.assignmentRmiClient.enums;
 
-import sun.security.provider.SHA;
-
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * commands in command prompt
+ */
 public final class Commands {
     public static final String REGISTER = "register";
     public static final String LOGIN = "login";

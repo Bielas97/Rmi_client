@@ -10,6 +10,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+/**
+ * Java rmi remote interface
+ */
 public interface RemoteInterface extends Remote {
     //tescik
     void printMessage(String message) throws RemoteException;

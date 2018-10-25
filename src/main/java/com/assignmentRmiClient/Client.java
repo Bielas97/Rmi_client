@@ -8,6 +8,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+/**
+ * main class
+ */
 public class Client {
     public static void main(String[] args) {
         try {
