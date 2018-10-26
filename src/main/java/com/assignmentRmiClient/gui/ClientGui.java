@@ -52,7 +52,7 @@ public class ClientGui {
             //zalogowany
             else {
                 scanner.nextLine();
-                System.out.println(notifications.get(currentlyLoggedUser));
+                //System.out.println(notifications.get(currentlyLoggedUser));
                 //user
                 if (currentlyLoggedUser.getType().equalsIgnoreCase(String.valueOf(Role.USER))) {
                     userInterface(remoteInterface, scanner, input);
@@ -66,9 +66,9 @@ public class ClientGui {
     }
 
     private void adminInterface(RemoteInterface remoteInterface, Scanner scanner, String input) throws Exception {
-        if (input.equals(Commands.HELP)) {
+        /*if (input.equals(Commands.HELP)) {
             System.out.println(Commands.getAllCommands());
-        }
+        }*/
         switch (input) {
             case Commands.LOGOUT:
                 logout(remoteInterface);
@@ -154,6 +154,12 @@ public class ClientGui {
             case Commands.DELETE_USER:
                 deleteUser(scanner, remoteInterface);
                 break;
+            case Commands.GET_ALL_USERS:
+                System.out.println(remoteInterface.getAllUsers());
+                break;
+            case Commands.HELP:
+                System.out.println(Commands.getAllCommands());
+                break;
             default:
                 System.err.println("Wrong command!");
                 break;
@@ -164,8 +170,7 @@ public class ClientGui {
     private void deleteArtist(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
         System.out.println("insert name of artist you would like to delete:");
         String deleteArtistName = scanner.nextLine();
-        remoteInterface.deleteArtist(deleteArtistName);
-        System.out.println("Song succesfully deleted");
+        System.out.println(remoteInterface.deleteArtist(deleteArtistName));
     }
 
     private void insertAlbum(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
@@ -175,9 +180,9 @@ public class ClientGui {
         String gen = scanner.nextLine();
         System.out.println("description:");
         String des = scanner.nextLine();
-        System.out.println("artist id:");
+        System.out.println("artist name:");
         String arId = scanner.nextLine();
-        System.out.println(remoteInterface.insertAlbum(al, gen, des, getArtistById(Integer.parseInt(arId), remoteInterface).getName()));
+        System.out.println(remoteInterface.insertAlbum(al, gen, des, arId));
     }
 
     private void insertArtist(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
@@ -203,15 +208,13 @@ public class ClientGui {
     private void deleteAlbum(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
         System.out.println("insert name of album you would like to delete:");
         String deleteAlbumName = scanner.nextLine();
-        remoteInterface.deleteAlbum(deleteAlbumName);
-        System.out.println("Album succesfully deleted");
+        System.out.println(remoteInterface.deleteAlbum(deleteAlbumName));
     }
 
     private void deleteSong(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
         System.out.println("insert name of song you would like to delete:");
         String deleteSongName = scanner.nextLine();
-        remoteInterface.deleteSong(deleteSongName);
-        System.out.println("Song succesfully deleted");
+        System.out.println(remoteInterface.deleteSong(deleteSongName));
     }
 
     private void changeArtist(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
@@ -342,7 +345,6 @@ public class ClientGui {
         }
         //System.out.println("**************");
         //System.out.println(notifications.get(user));
-        System.out.println(remoteInterface.promoteUser(user.getUsername(), newRole));
     }
 
     private void userInterface(RemoteInterface remoteInterface, Scanner scanner, String input) throws RemoteException {

@@ -39,6 +39,7 @@ public final class Commands {
     public static final String INSERT_FAVOURITE_SONG = "insertFavouriteSong";
     public static final String CHANGE_ARTIST_BIO = "changeArtistBio";
     public static final String DELETE_USER = "deleteUser";
+    public static final String GET_ALL_USERS= "getAllUsers";
 
 
     public static List<String> getAllCommands() {
@@ -47,7 +48,7 @@ public final class Commands {
                 INSERT_FAVOURITE_SONG, CHANGE_ALBUM, CHANGE_ARTIST, CHANGE_SONG, CHANGE_ARTIST_BIO, DELETE_ALBUM,
                 DELETE_ARTIST, DELETE_SONG, DELETE_USER, SEARCH_SONGS_BY_ALBUM, SEARCH_SONGS_BY_ARTIST,
                 SEARCH_SONGS_BY_GENRE, WRITE_DESC, GIVE_PRIVILAGE, CHECK_NOTIFICATIONS, GET_FAVOURITE_SONGS,
-                GET_SHARED_SONGS, SHARE_SONG);
+                GET_SHARED_SONGS, SHARE_SONG, GET_ALL_USERS);
     }
 
     public static List<String> getUserCommands(){
