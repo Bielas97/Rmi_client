@@ -160,10 +160,32 @@ public class ClientGui {
             case Commands.HELP:
                 System.out.println(Commands.getAllCommands());
                 break;
+            case Commands.GET_SONG:
+                getSong(scanner, remoteInterface);
+                break;
             default:
                 System.err.println("Wrong command!");
                 break;
 
+        }
+    }
+
+    private void getSong(Scanner scanner, RemoteInterface remoteInterface) {
+        System.out.println("insert name of song:");
+        String name = scanner.nextLine();
+        System.out.println("checkin if you can download...");
+        try {
+            if(remoteInterface.checkIfUserCanDownload(currentlyLoggedUser.getUsername(), name).equalsIgnoreCase("ok")){
+                System.out.println("you can download");
+                System.out.println("downloading");
+                remoteInterface.getFile(name);
+                System.out.println("downloaded");
+            }
+            else {
+                System.out.println("you have no permission to download it...");
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 
@@ -223,7 +245,6 @@ public class ClientGui {
         System.out.println("new name:");
         String artistNewName = scanner.nextLine();
         System.out.println(remoteInterface.updateArtist(artistNewName, changeArtistsName));
-        System.out.println("Succesfully upadted!");
     }
 
     private void changeAlbum(RemoteInterface remoteInterface, Scanner scanner) throws RemoteException {
@@ -348,9 +369,9 @@ public class ClientGui {
     }
 
     private void userInterface(RemoteInterface remoteInterface, Scanner scanner, String input) throws RemoteException {
-        if (input.equals(Commands.HELP)) {
+        /*if (input.equals(Commands.HELP)) {
             System.out.println(Commands.getUserCommands());
-        }
+        }*/
         //user
         userCases(remoteInterface, scanner, input);
     }
@@ -359,6 +380,9 @@ public class ClientGui {
         switch (input) {
             case Commands.LOGOUT:
                 logout(remoteInterface);
+                break;
+            case Commands.HELP:
+                System.out.println(Commands.getUserCommands());
                 break;
             case Commands.BROWSE_ALL_SONGS:
                 remoteInterface.getAllSongs().forEach(System.out::println);
@@ -406,6 +430,9 @@ public class ClientGui {
                 break;
             case Commands.INSERT_FAVOURITE_SONG:
                 insertFavouriteSong(scanner, remoteInterface);
+                break;
+            case Commands.GET_SONG:
+                getSong(scanner, remoteInterface);
                 break;
             default:
                 System.err.println("Wrong command!");
@@ -477,14 +504,13 @@ public class ClientGui {
         String username = scanner.nextLine();
         System.out.println("password: ");
         String password = scanner.nextLine();
-        System.out.println("email");
-        String email = scanner.nextLine();
         System.out.println("select role - write admin or user: ");
         String role = scanner.nextLine();
         //remoteInterface.register(username, password, email, Role.valueOf(role.toUpperCase()));
         System.out.println("registering...");
         Thread.sleep(500);
-        System.out.println(remoteInterface.register(username, password, role.toUpperCase()));
+        System.out.println(remoteInterface.register(username, password, role));
+        //System.out.println(remoteInterface.register(username, password, role.toUpperCase()));
     }
 
     private User getOneUser(String username, RemoteInterface remoteInterface) throws Exception {
@@ -524,7 +550,13 @@ public class ClientGui {
         try {
             if (remoteInterface.checkIfUserCanDownload(username, filename).equals("ok")) {
                 if (remoteInterface.checkIfFileCorresponds(filename).equals("ok")) {
-                    System.out.println(remoteInterface.shareSong(username, filename));
+                    if(remoteInterface.shareSong(username, filename).startsWith("User")){
+                        remoteInterface.sendFile(filename);
+                        System.out.println("file sent");
+                    }
+                    else {
+                        System.out.println(remoteInterface.shareSong(username, filename));
+                    }
                 } else {
                     System.out.println("file corresponds with other one!");
                 }
